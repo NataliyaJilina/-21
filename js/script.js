@@ -57,11 +57,12 @@ async function sendRequest(url, method, data) {
 }
 
 let searchForm = document.querySelector('#searchForm')
-searchForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    search()
-})
-
+if(searchForm){
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+        search()
+    })
+}
 
 async function search() {
     let searchQuery = document.getElementsByName('search')[0].value
@@ -168,7 +169,10 @@ function addFav() {
     let poster = elem.getAttribute('data-poster');
     let imdbID = elem.getAttribute('data-imdbID');
 
-    let obj = {title, poster, imdbID};
+    let obj = {
+        "Title": title, 
+        "Poster": poster, 
+        imdbID};
 
     let favs = localStorage.getItem('favs');
     if (!favs) {
@@ -188,19 +192,29 @@ function addFav() {
     }
 
     localStorage.setItem('favs', JSON.stringify(favs));
-}
-
-function addFavToLS(movie) {
-    let favs = localStorage.getItem('favs')
-    if(!favs) {
-        favs = []
-        favs.push(movie)
-        localStorage.setItem('favs', JSON.stringify(favs))
-    } else {
-        favs = JSON.parse(favs)
-        favs.push(movie)
-        localStorage.setItem('favs', JSON.stringify(favs))
+    
+    if(UPDATE_FAVORITES){
+    showFavorites()
     }
 }
 
+// function addFavToLS(movie) {
+//     let favs = localStorage.getItem('favs')
+//     if(!favs) {
+//         favs = []
+//         favs.push(movie)
+//         localStorage.setItem('favs', JSON.stringify(favs))
+//     } else {
+//         favs = JSON.parse(favs)
+//         favs.push(movie)
+//         localStorage.setItem('favs', JSON.stringify(favs))
+//     }
+// }
+
+function showFavorites(){
+    let favorites = localStorage.getItem("favs")
+    favorites = JSON.parse(favorites)
+
+    showSimilarFilms(favorites)
+}
 

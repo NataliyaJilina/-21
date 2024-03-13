@@ -89,6 +89,11 @@ body {
     animation: bgMove 300s linear infinite alternate;
 }
 
+a{
+    text-decoration: none;
+    color: var(--dark-elem-color) ;
+}
+
 header, .searchLine, section {
     background: var(--bg-main);
     padding: 5px;
@@ -342,6 +347,14 @@ body[data-theme="dark"] .favorite img {
 
 body[data-theme="dark"] .searchLine button {
     color: white;
+}
+
+body[data-theme="dark"] a {
+    color: var(--elem-color);
+}
+
+body[data-theme="dark"] input {
+    color: var(--bg-main);
 }
 
 @media (max-width: 500px) {
